@@ -16,7 +16,7 @@ const Page: FC<Props> = (props) => {
   const [route, setRoute] = useState("Login");
 
   return (
-    <div>
+    <div> 
       <Heading
         title="ELearning"
         description="ELearning is a platform for students to learn and get help from teachers"
