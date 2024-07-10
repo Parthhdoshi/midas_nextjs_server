@@ -29,7 +29,9 @@ const CourseDetails = ({
 }: Props) => {
   const { data: userData,refetch } = useLoadUserQuery(undefined, {});
   const [user, setUser] = useState<any>();
+  const [couponCode, setCouponCode] = useState<any>();
   const [open, setOpen] = useState(false);
+  const [couponVerified, setCouponVerified] = useState(false);
 
   useEffect(() => {
     setUser(userData?.user);
@@ -51,6 +53,10 @@ const CourseDetails = ({
       openAuthModal(true);
     }
   };
+
+  const verifyCouponCode = (e:any) => {
+    setCouponVerified(true)
+  }
 
   return (
     <div>
@@ -229,7 +235,7 @@ const CourseDetails = ({
                 </h4>
               </div>
               <div className="flex items-center">
-                {isPurchased ? (
+                {isPurchased || couponVerified ? (
                   <Link
                     className={`${styles.button} !w-[180px] my-3 font-Poppins cursor-pointer !bg-[crimson]`}
                     href={`/course-access/${data._id}`}
@@ -245,6 +251,21 @@ const CourseDetails = ({
                   </div>
                 )}
               </div>
+              <div className="flex items-center">
+          <input
+            type="text"
+            name=""
+            id=""
+            placeholder="Discount code..."
+            onChange={verifyCouponCode}
+            className={`${styles.input} 1500px:!w-[50%] 1100px:w-[60%] ml-3 !mt-0`}
+          />
+          <div
+            className={`${styles.button} !w-[120px] my-3 ml-4 font-Poppins cursor-pointer`}
+          >
+            Apply
+          </div>
+        </div>
               <br />
               <p className="pb-1 text-black dark:text-white">
                 • Source code included
