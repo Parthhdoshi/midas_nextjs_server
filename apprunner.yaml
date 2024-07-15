@@ -9,7 +9,3 @@ run:
   command: npm start
   network:
     port: 3000
-
-networkConfiguration:
-  egressConfiguration:
-    egressType: DEFAULT
