@@ -13,11 +13,3 @@ run:
 networkConfiguration:
   egressConfiguration:
     egressType: DEFAULT
-
-# instanceConfiguration:
-#   environment:
-#     variables:
-#       - key: ENV_VAR_1
-#         value: value1
-#       - key: ENV_VAR_2
-#         value: value2
