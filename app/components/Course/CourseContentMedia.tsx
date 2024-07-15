@@ -21,7 +21,7 @@ import { BiMessage } from "react-icons/bi";
 import { VscVerifiedFilled } from "react-icons/vsc";
 import Ratings from "@/app/utils/Ratings";
 import socketIO from "socket.io-client";
-const ENDPOINT = process.env.NEXT_PUBLIC_SOCKET_SERVER_URI || "";
+const ENDPOINT = "https://wmbfpaepsn.ap-south-1.awsapprunner.com/"
 const socketId = socketIO(ENDPOINT, { transports: ["websocket"] });
 
 type Props = {
