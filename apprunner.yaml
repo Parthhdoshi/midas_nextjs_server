@@ -5,11 +5,11 @@ build:
     build:
         - npm install
         - npm build
-  env:
-    - name: NEXT_PUBLIC_SERVER_URI
-      value: "https://wmbfpaepsn.ap-south-1.awsapprunner.com/api/v1/"
-    - name: NEXT_PUBLIC_SOCKET_SERVER_URI
-      value: "https://wmbfpaepsn.ap-south-1.awsapprunner.com/"
+env:
+  - name: NEXT_PUBLIC_SERVER_URI
+    value: "https://wmbfpaepsn.ap-south-1.awsapprunner.com/api/v1/"
+  - name: NEXT_PUBLIC_SOCKET_SERVER_URI
+    value: "https://wmbfpaepsn.ap-south-1.awsapprunner.com/"
 
 run:
   command: npm start
