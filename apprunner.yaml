@@ -5,7 +5,7 @@ build:
     pre-build:
       - npm install
     build:
-      - npm build
+      - npm run build
 run: 
   command: npm start
   network:
