@@ -14,42 +14,18 @@ const CoursePlayer: FC<Props> = ({ videoUrl }) => {
   //   playbackInfo: "",
   // });
 
-  useEffect(() => {
-    // axios
-    //   .post("http://localhost:8000/api/v1/getVdoCipherOTP", {
-    //     videoId: videoUrl,
-    //   })
-    //   .then((res) => {
-    //     setVideoData(res.data);
-    //   });
-  }, [videoUrl]);
-
   return (
     <div 
-    style={{position:"relative",overflow:"hidden"}}
+    // style={{position:"relative",overflow:"hidden"}}
     key={videoUrl}
     >
-      <Plyr 
+      <Plyr key={videoUrl}
             source={{
               type: "video",
               // @ts-ignore
               sources: [{ src: videoUrl, provider: "vimeo" }],
             }}
           />
-        {/* <iframe
-          src={videoUrl}
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            border: 0
-          }}
-          allowFullScreen={true}
-          allow="encrypted-media"
-        ></iframe> */}
-
     </div>
   );
 };
