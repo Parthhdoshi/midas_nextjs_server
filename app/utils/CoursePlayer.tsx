@@ -33,7 +33,7 @@ const CoursePlayer: FC<Props> = ({ videoUrl }) => {
             source={{
               type: "video",
               // @ts-ignore
-              sources: [{ src: 953129433, provider: "vimeo" }],
+              sources: [{ src: videoUrl, provider: "vimeo" }],
             }}
           />
         {/* <iframe
