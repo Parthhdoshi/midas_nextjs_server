@@ -10,6 +10,14 @@ export const coursesApi = apiSlice.injectEndpoints({
         credentials: "include" as const,
       }),
     }),
+    applyCoupon: builder.mutation({
+      query: (data) => ({
+        url: "create-order-by-coupon",
+        method: "POST",
+        body: data,
+        credentials: "include" as const,
+      }),
+    }),
     getAllCourses: builder.query({
       query: () => ({
         url: "get-admin-courses",
@@ -113,5 +121,6 @@ export const {
   useAddNewQuestionMutation,
   useAddAnswerInQuestionMutation,
   useAddReviewInCourseMutation,
-  useAddReplyInReviewMutation
+  useAddReplyInReviewMutation,
+  useApplyCouponMutation
 } = coursesApi;

@@ -1,0 +1,2 @@
+export const SOCKET_ENDPOINT = process.env.NODE_ENV === "production" ?  "https://wmbfpaepsn.ap-south-1.awsapprunner.com/" : "http://localhost:8000/"
+export const ENDPOINT = process.env.NODE_ENV === "production" ?  "https://wmbfpaepsn.ap-south-1.awsapprunner.com/" : "http://localhost:8000/"

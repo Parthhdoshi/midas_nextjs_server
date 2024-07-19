@@ -1,5 +1,7 @@
 import React, { FC, useEffect, useState } from "react";
 import axios from "axios";
+import Plyr from "plyr-react"
+import "plyr-react/plyr.css"
 
 type Props = {
   videoUrl: string;
@@ -7,26 +9,35 @@ type Props = {
 };
 
 const CoursePlayer: FC<Props> = ({ videoUrl }) => {
-  const [videoData, setVideoData] = useState({
-    otp: "",
-    playbackInfo: "",
-  });
+  // const [videoData, setVideoData] = useState({
+  //   otp: "",
+  //   playbackInfo: "",
+  // });
 
   useEffect(() => {
-    axios
-      .post("http://localhost:8000/api/v1/getVdoCipherOTP", {
-        videoId: videoUrl,
-      })
-      .then((res) => {
-        setVideoData(res.data);
-      });
+    // axios
+    //   .post("http://localhost:8000/api/v1/getVdoCipherOTP", {
+    //     videoId: videoUrl,
+    //   })
+    //   .then((res) => {
+    //     setVideoData(res.data);
+    //   });
   }, [videoUrl]);
 
   return (
-    <div style={{position:"relative",paddingTop:"56.25%",overflow:"hidden"}}>
-      {videoData.otp && videoData.playbackInfo !== "" && (
-        <iframe
-          src={`https://player.vdocipher.com/v2/?otp=${videoData?.otp}&playbackInfo=${videoData.playbackInfo}&player=Ub9OiZXIOeUXH0Nv`}
+    <div 
+    style={{position:"relative",overflow:"hidden"}}
+    key={videoUrl}
+    >
+      <Plyr 
+            source={{
+              type: "video",
+              // @ts-ignore
+              sources: [{ src: 953129433, provider: "vimeo" }],
+            }}
+          />
+        {/* <iframe
+          src={videoUrl}
           style={{
             position: "absolute",
             top: 0,
@@ -37,8 +48,8 @@ const CoursePlayer: FC<Props> = ({ videoUrl }) => {
           }}
           allowFullScreen={true}
           allow="encrypted-media"
-        ></iframe>
-      )}
+        ></iframe> */}
+
     </div>
   );
 };

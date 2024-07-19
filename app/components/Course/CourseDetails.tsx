@@ -11,6 +11,8 @@ import CheckOutForm from "../Payment/CheckOutForm";
 import { useLoadUserQuery } from "@/redux/features/api/apiSlice";
 import Image from "next/image";
 import { VscVerifiedFilled } from "react-icons/vsc";
+import { useApplyCouponMutation } from "@/redux/features/courses/coursesApi";
+import toast from "react-hot-toast";
 
 type Props = {
   data: any;
@@ -27,11 +29,16 @@ const CourseDetails = ({
   setRoute,
   setOpen: openAuthModal,
 }: Props) => {
-  const { data: userData,refetch } = useLoadUserQuery(undefined, {});
+  const { data: userData, refetch } = useLoadUserQuery(undefined, {});
+  const [applyCoupon, { isSuccess, error }] = useApplyCouponMutation();
   const [user, setUser] = useState<any>();
-  const [couponCode, setCouponCode] = useState<any>();
   const [open, setOpen] = useState(false);
-  const [couponVerified, setCouponVerified] = useState(false);
+  const [coupon, setCoupon] = useState("");
+
+  // Function to handle input change
+  const handleInputChange = (e: any) => {
+    setCoupon(e.target.value);
+  };
 
   useEffect(() => {
     setUser(userData?.user);
@@ -54,9 +61,26 @@ const CourseDetails = ({
     }
   };
 
-  const verifyCouponCode = (e:any) => {
-    setCouponVerified(true)
-  }
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("You successfully enroll this course!");
+      refetch();
+    }
+    if (error) {
+      if ("data" in error) {
+        const errorMessage = error as any;
+        toast.error(errorMessage.data.message);
+      }
+    }
+  }, [isSuccess, error]);
+
+  const verifyCouponCode = async (e: any) => {
+    const couponData = {
+      courseId: data._id,
+      couponCode: coupon,
+    };
+    await applyCoupon(couponData);
+  };
 
   return (
     <div>
@@ -235,7 +259,7 @@ const CourseDetails = ({
                 </h4>
               </div>
               <div className="flex items-center">
-                {isPurchased || couponVerified ? (
+                {isPurchased ? (
                   <Link
                     className={`${styles.button} !w-[180px] my-3 font-Poppins cursor-pointer !bg-[crimson]`}
                     href={`/course-access/${data._id}`}
@@ -251,21 +275,27 @@ const CourseDetails = ({
                   </div>
                 )}
               </div>
-              <div className="flex items-center">
-          <input
-            type="text"
-            name=""
-            id=""
-            placeholder="Discount code..."
-            onChange={verifyCouponCode}
-            className={`${styles.input} 1500px:!w-[50%] 1100px:w-[60%] ml-3 !mt-0`}
-          />
-          <div
-            className={`${styles.button} !w-[120px] my-3 ml-4 font-Poppins cursor-pointer`}
-          >
-            Apply
-          </div>
-        </div>
+              {!isPurchased ? (
+                <div className="flex items-center">
+                  <input
+                    type="text"
+                    name="coupon"
+                    id=""
+                    placeholder="Discount code..."
+                    className={`${styles.input} 1500px:!w-[50%] 1100px:w-[60%] ml-3 !mt-0`}
+                    value={coupon}
+                    onChange={handleInputChange}
+                  />
+                  <div
+                    className={`${styles.button} !w-[120px] my-3 ml-4 font-Poppins cursor-pointer`}
+                    onClick={verifyCouponCode}
+                  >
+                    Apply
+                  </div>
+                </div>
+              ) : (
+                <></>
+              )}
               <br />
               <p className="pb-1 text-black dark:text-white">
                 • Source code included
@@ -298,7 +328,12 @@ const CourseDetails = ({
                 {/* {stripePromise && clientSecret && ( */}
                 {stripePromise && clientSecret && (
                   <Elements stripe={stripePromise} options={{ clientSecret }}>
-                    <CheckOutForm setOpen={setOpen} data={data} user={user} refetch={refetch} />
+                    <CheckOutForm
+                      setOpen={setOpen}
+                      data={data}
+                      user={user}
+                      refetch={refetch}
+                    />
                   </Elements>
                 )}
               </div>

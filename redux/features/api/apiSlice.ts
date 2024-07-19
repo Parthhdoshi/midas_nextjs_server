@@ -1,10 +1,11 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { userLoggedIn } from "../auth/authSlice";
+import { ENDPOINT } from "@/utils/endpoint";
 
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://wmbfpaepsn.ap-south-1.awsapprunner.com/api/v1/",
+    baseUrl: `${ENDPOINT}api/v1/`,
   }),
   endpoints: (builder) => ({
     refreshToken: builder.query({

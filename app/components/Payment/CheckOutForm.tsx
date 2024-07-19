@@ -11,7 +11,7 @@ import { redirect } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import socketIO from "socket.io-client";
-const ENDPOINT = "https://wmbfpaepsn.ap-south-1.awsapprunner.com/"
+import { ENDPOINT } from "@/utils/endpoint";
 const socketId = socketIO(ENDPOINT, { transports: ["websocket"] });
 
 type Props = {

@@ -69,8 +69,10 @@ const ProfileInfo: FC<Props> = ({ avatar, user }) => {
             className="w-[120px] h-[120px] cursor-pointer border-[3px] border-[#37a39a] rounded-full"
           />
           <input
+          placeholder=""
+          aria-label=""
             type="file"
-            name=""
+            name="avatar"
             id="avatar"
             className="hidden"
             onChange={imageHandler}
@@ -88,6 +90,7 @@ const ProfileInfo: FC<Props> = ({ avatar, user }) => {
       <div className="w-full pl-6 800px:pl-10">
         <form onSubmit={handleSubmit}>
           <div className="800px:w-[50%] m-auto block pb-4">
+            <div className="pb-2"> UID :  { user._id } </div>
             <div className="w-[100%]">
               <label className="block pb-2">Full Name</label>
               <input

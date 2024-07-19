@@ -8,7 +8,7 @@ import React, { FC, useEffect, useState } from "react";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import socketIO from "socket.io-client";
 import { format } from "timeago.js";
-const ENDPOINT = "https://wmbfpaepsn.ap-south-1.awsapprunner.com/"
+import { ENDPOINT } from "@/utils/endpoint";
 const socketId = socketIO(ENDPOINT, { transports: ["websocket"] });
 
 type Props = {
